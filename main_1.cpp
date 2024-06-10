@@ -16,6 +16,7 @@
 #include "include/model.hpp"
 #include "include/set_up.hpp"
 #include "include/shader.hpp"
+#include "definitions.hpp"
 
 #include "project/orbit.hpp"
 
@@ -40,7 +41,10 @@ int main(int argc, char *argv[]) {
    "shaders/fragment/object_fr_pos_light.glsl"};
 
   Entity rubber_duck("obj/rubber_duck.obj", f_names_obj.vert, f_names_obj.frag);
-  Entity object("obj/dimorphos.obj",f_names_obj.vert,f_names_obj.frag);
+  Entity marine_biology("obj/marine_biology.obj", f_names_obj.vert, f_names_obj.frag);
+  Entity spoon("obj/spoon.obj",f_names_obj.vert,f_names_obj.frag);
+  Entity teacup("obj/teacup.obj",f_names_obj.vert,f_names_obj.frag);
+  Entity teapot("obj/teapot.obj",f_names_obj.vert,f_names_obj.frag);
   Entity light_source("obj/cube.obj",
                             "shaders/vertex/source_ve.glsl",
                             "shaders/fragment/source_fr.glsl");
@@ -72,6 +76,18 @@ int main(int argc, char *argv[]) {
 
   while (!glfwWindowShouldClose(window)) {
 
+  auto draw_scene_entity= [&](Entity* object, glm::mat4 const& view, glm::vec3 const& object_pos, float level_scale ){
+    draw_entity(object, view, object_pos, level_scale) ;
+    using property_vec_t = std::vector<std::pair<std::string, glm::vec3>> ; 
+    object->set_properties(
+      property_vec_t{
+                   {"light_color", light_color},
+                   {"object_color", object_color},
+                   {"light_pos", light_source_pos}
+      });
+
+    object->draw();
+  };
 
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -94,29 +110,14 @@ int main(int argc, char *argv[]) {
     using property_vec_t = std::vector<std::pair<std::string, glm::vec3>> ; 
     using property_mat_t = std::vector<std::pair<std::string, glm::mat4>> ; 
 
-    draw_entity(&object, view, object_pos, level_scale) ;
-
-    object.set_properties(
-      property_vec_t{
-                   {"light_color", light_color},
-                   {"object_color", object_color},
-                   {"light_pos", light_source_pos}
-      });
-
-    object.draw();
-
-
-    draw_entity(&rubber_duck, view, satellite_pos, level_scale) ;
-
-    rubber_duck.set_properties(
-      property_vec_t{
-      {"light_color", light_color},
-      {"light_pos",    light_source_pos},
-      {"object_color", object_color}
-      }
-    );
-
-    rubber_duck.draw() ; 
+    {
+    using glm::vec3 ;
+    draw_scene_entity(&teacup, view, vec3(1.,0.,0.), level_scale) ;
+    draw_scene_entity(&teapot, view, vec3(1.,1.5, 0.), level_scale) ;
+    draw_scene_entity(&spoon, view, vec3(0,1,0), level_scale) ;
+    draw_scene_entity(&marine_biology, view, vec3(-2,0,0), level_scale) ;
+    draw_scene_entity(&rubber_duck, view, vec3(1,1,1), level_scale) ;
+    }
 
 
     draw_entity(&light_source, view, light_source_pos, level_scale );
