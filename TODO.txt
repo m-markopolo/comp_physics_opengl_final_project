@@ -1,0 +1,16 @@
+Final Exercises:
+
+    Make a scenery with Didymos and Dimorphos asteroids.
+      Dimorphos is orbiting around Didymos in a circular orbit at 1.19 kilometers 
+      with a period of 12 hours.
+      Didymos model is already in kilometers and Dimoprhos should be realised 
+      as an ellipsoid with semiaxis 0.4, 0.3, 0.2.
+      Didymos spins with period 2.3 hours and Dimorphos is tidally locked.
+      Dimorphos is tidally locked, which mean its rotational period is the same with its orbital period.
+      Make a programme that simulates the system with directional light.
+      Use didymos2019final.obj model but you need to compute the normals in some way. (4 points)
+
+    Make a scenery with 4 items of your choice. Use positional light and allow the user to move the light source and light color with a control of your choice (either mouse or keyboard). (2 points)
+
+    Free project. Be inspiring to the future students of the class. (4 points)
+
