@@ -33,4 +33,12 @@
      *try to push the boxes around. 
      *jump while keeping the spacebar and see what happens.
      *try to land on a box. why can you not stay on top of it?
-     
+
+
+
+PREREQUISITES:
+assimp
+glad
+glfw
+glm
+
